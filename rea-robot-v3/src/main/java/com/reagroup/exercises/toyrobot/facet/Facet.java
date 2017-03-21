@@ -1,4 +1,4 @@
-package com.reagroup.exercises.toyrobot.commad;
+package com.reagroup.exercises.toyrobot.facet;
 
 import java.util.Optional;
 
@@ -6,11 +6,13 @@ import com.reagroup.exercises.toyrobot.input.MutableString;
 
 /**
  * Represents a conditional object which can match an input and present a value
- * of a particular type.
+ * of a particular type. Facets can be cascaded together to form another facet,
+ * hence it is imperative for the input to be mutable or stateful.
  * 
  * @author Sabya
  * 
- * @param <T> - The type of the object the facet will return
+ * @param <T>
+ *            - The type of the object the facet will return
  */
 @FunctionalInterface
 public interface Facet<T> {

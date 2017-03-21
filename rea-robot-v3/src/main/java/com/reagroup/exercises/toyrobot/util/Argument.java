@@ -39,4 +39,22 @@ public abstract class Argument {
 		
 		return value;
 	}
+	
+	/**
+	 * Verifies that the integer value is non-negative or not.
+	 *  
+	 * @param value
+	 * @param argName
+	 * 
+	 * @throws IllegalArgumentException if the input value is negative
+	 * @return the integer itself
+	 */
+	public static int zeroOrPositive(final int value, final String argName) {
+		if(value < 0) {
+			throw new IllegalArgumentException(
+					String.format(" %s can not be negative", argName));
+		}
+		
+		return value;
+	}
 }

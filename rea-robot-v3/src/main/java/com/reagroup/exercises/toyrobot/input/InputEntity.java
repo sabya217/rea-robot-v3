@@ -11,5 +11,5 @@ package com.reagroup.exercises.toyrobot.input;
 @FunctionalInterface
 public interface InputEntity {
 
-	String getCurrentValue();
+	String getValue();
 }
