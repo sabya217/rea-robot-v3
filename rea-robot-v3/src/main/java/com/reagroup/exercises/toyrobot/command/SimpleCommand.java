@@ -41,8 +41,9 @@ public enum SimpleCommand implements Command {
 	public static Optional<SimpleCommand> from(final String input) {
 		Argument.notNull(input, "input");
 		
+		final String inputFinal = input.trim();
 		for(SimpleCommand command : SimpleCommand.values()) {
-			if(command.name().equalsIgnoreCase(input)) {
+			if(command.name().equalsIgnoreCase(inputFinal)) {
 				return Optional.of(command);
 			}
 		}

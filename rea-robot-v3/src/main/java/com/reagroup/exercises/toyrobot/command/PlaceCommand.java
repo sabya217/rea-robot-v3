@@ -38,13 +38,23 @@ public class PlaceCommand implements FacetedCommand<Position> {
 	
 	private static Optional<PlaceCommand> matchInput(MutableString input) {
 		
+		input.mark();
 		final Optional<String> placeOptional = placeFacet.matchValue(input);
 		if(!placeOptional.isPresent()) {
+			input.reset();
 			return Optional.empty();
 		}
 		
 		final Optional<Position> positionOptional = positionFacet.matchValue(input);
 		if(!positionOptional.isPresent()) {
+			input.reset();
+			return Optional.empty();
+		}
+		
+		input.discard();
+		
+		//Should invalidate if the input contains extraneous data
+		if(!input.getValue().trim().isEmpty()) {
 			return Optional.empty();
 		}
 		
