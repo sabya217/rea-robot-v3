@@ -70,6 +70,20 @@ public class Coordinates {
 	}
 	
 	/**
+	 * @return the x
+	 */
+	public int getX() {
+		return X;
+	}
+
+	/**
+	 * @return the y
+	 */
+	public int getY() {
+		return Y;
+	}
+
+	/**
 	 * Generates a printable output.
 	 * 
 	 * @return the String representation.

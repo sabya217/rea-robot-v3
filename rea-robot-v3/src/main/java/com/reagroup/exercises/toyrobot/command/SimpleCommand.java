@@ -2,7 +2,10 @@ package com.reagroup.exercises.toyrobot.command;
 
 import java.util.Optional;
 
+import com.reagroup.exercises.toyrobot.executor.MutablePosition;
+import com.reagroup.exercises.toyrobot.executor.SimpleCommandExecutor;
 import com.reagroup.exercises.toyrobot.position.Direction;
+import com.reagroup.exercises.toyrobot.position.Surface;
 import com.reagroup.exercises.toyrobot.util.Argument;
 
 /**
@@ -49,5 +52,10 @@ public enum SimpleCommand implements Command {
 		}
 		
 		return Optional.empty();
+	}
+
+	@Override
+	public void apply(MutablePosition mutablePosition, Surface surface) {
+		SimpleCommandExecutor.singleton().execute(this, mutablePosition, surface);
 	}
 }

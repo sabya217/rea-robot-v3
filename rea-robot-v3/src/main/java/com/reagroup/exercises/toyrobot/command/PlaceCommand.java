@@ -5,11 +5,17 @@ package com.reagroup.exercises.toyrobot.command;
 
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.reagroup.exercises.toyrobot.executor.MutablePosition;
 import com.reagroup.exercises.toyrobot.facet.GenericStringFacet;
 import com.reagroup.exercises.toyrobot.facet.PositionFacet;
 import com.reagroup.exercises.toyrobot.input.MutableString;
 import com.reagroup.exercises.toyrobot.position.Position;
+import com.reagroup.exercises.toyrobot.position.Surface;
 import com.reagroup.exercises.toyrobot.util.Argument;
+import com.reagroup.exercises.toyrobot.util.CoordinatesVerifier;
 
 /**
  * Represents a place command which takes a {@link Position} as an input.
@@ -18,6 +24,8 @@ import com.reagroup.exercises.toyrobot.util.Argument;
  */
 public class PlaceCommand implements FacetedCommand<Position> {
 
+	private static final Logger LOG = LoggerFactory.getLogger(PlaceCommand.class); 
+	
 	private final Position position;
 
 	private static final GenericStringFacet placeFacet = GenericStringFacet.of("PLACE");
@@ -28,6 +36,16 @@ public class PlaceCommand implements FacetedCommand<Position> {
 		this.position = position;
 	}
 
+	/**
+	 * Creates a {@link PlaceCommand} from the {@link Position}.
+	 * 
+	 * @param position
+	 * @return an instance of {@link PlaceCommand}
+	 */
+	public static PlaceCommand of(final Position position) {
+		return new PlaceCommand(Argument.notNull(position, "position"));
+	}
+	
 	public static Optional<PlaceCommand> from(final String input) {
 		Argument.notNull(input, "input");
 		
@@ -66,5 +84,16 @@ public class PlaceCommand implements FacetedCommand<Position> {
 	@Override
 	public Position getFacetValue() {
 		return this.position;
+	}
+
+	@Override
+	public void apply(final MutablePosition mutablePosition, final Surface surface) {
+		if(!CoordinatesVerifier.isWithin(this.position.getCoordinates(), surface)) {
+			LOG.warn("Co-ordinates \"{}\" out of range.", this.position.getCoordinates());
+			return;
+		}
+		
+		LOG.debug("Updated position to \"{}\"", this.position);
+		mutablePosition.updatePosition(this.position);
 	}
 }

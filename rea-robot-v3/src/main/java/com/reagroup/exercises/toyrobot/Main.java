@@ -6,5 +6,6 @@ package com.reagroup.exercises.toyrobot;
 public class Main {
 	
     public static void main(final String[] args) {
+    	
     }
 }

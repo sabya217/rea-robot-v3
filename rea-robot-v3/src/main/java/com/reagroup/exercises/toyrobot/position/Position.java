@@ -49,6 +49,20 @@ public class Position {
 	}
 	
 	/**
+	 * @return the coordinates
+	 */
+	public Coordinates getCoordinates() {
+		return coordinates;
+	}
+
+	/**
+	 * @return the direction
+	 */
+	public Direction getDirection() {
+		return direction;
+	}
+
+	/**
 	 * Generates a printable output.
 	 * 
 	 * @return the String representation.
