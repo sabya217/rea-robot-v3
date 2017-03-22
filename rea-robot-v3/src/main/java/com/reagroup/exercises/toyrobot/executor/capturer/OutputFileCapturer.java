@@ -2,17 +2,23 @@ package com.reagroup.exercises.toyrobot.executor.capturer;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.nio.file.Path;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.reagroup.exercises.toyrobot.util.Argument;
 
 /**
- * A capturer of report lines that stores data in a an external file.
+ * A capturer of report lines that stores data in an external file.
  * 
  * @author Sabya
  *
  */
 public class OutputFileCapturer implements Capturer<String> {
 
+	private static final Logger LOG = LoggerFactory.getLogger(OutputFileCapturer.class);
+	
 	private PrintWriter writer;
 	
 	private String fileName;
@@ -26,33 +32,41 @@ public class OutputFileCapturer implements Capturer<String> {
 		this.fileName = fileName;
 	}
 	
-	public static Capturer<String> create(final String fileName) {
-		Argument.notNull(fileName, "fileName");
+	/**
+	 * Creates the output file capturer.
+	 * 
+	 * @param fileName
+	 */
+	public static Capturer<String> create(final Path outputPath) {
+		Argument.notNull(outputPath, "outputPath");
 		
-		PrintWriter pw;
+		PrintWriter writer = null;
 		try {
-			pw = new PrintWriter(fileName);
-			return new OutputFileCapturer(pw, fileName);
+			writer = new PrintWriter(outputPath.toFile());
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			LOG.error("Error creating the output file \"{}\"", outputPath);
 		}
-		return null;
+		
+		return new OutputFileCapturer(writer, outputPath.getFileName().toString());
 	}
 
 	@Override
 	public void init() {
-		
+		//
 	}
 
 	@Override
 	public void capture(String line) {
-		this.writer.println(line);
-
+		if(this.writer != null) {
+			this.writer.println(line);
+		}
 	}
 
 	@Override
 	public void close() {
-		this.writer.close();
+		if(this.writer != null) {
+			this.writer.close();
+		}
 	}
 
 	@Override

@@ -22,12 +22,12 @@ import com.reagroup.exercises.toyrobot.position.Position;
 public class PositionFacetTest {
 
 	@Test
-	public void directionTestPass() {
+	public void positionTestPass() {
 		PositionFacet positionFacet = PositionFacet.instance();
 		assertNotNull(positionFacet);
 		
-		List<String> inputs = Arrays.asList("1,2 NORTH", "1,3SOUTH", "1, 2 east", " 1,3weST", 
-									" 4, 3 WESt", " 0, 3 WEST rea", " 6,3 EASTrea");
+		List<String> inputs = Arrays.asList("1,2, NORTH", "1,3,SOUTH", "1, 2 ,east", " 1,3,weST", 
+									" 4, 3 ,WESt", " 0, 3 , WEST rea", " 6,3 ,EASTrea");
 		Queue<Position> expected = 
 				new LinkedList<>(
 						Arrays.asList(
@@ -36,19 +36,19 @@ public class PositionFacetTest {
 								Position.from(Coordinates.of(4, 3), Direction.WEST), Position.from(Coordinates.of(0, 3), Direction.WEST),
 								Position.from(6, 3, Direction.EAST)
 								));
-		inputs.forEach(inputString -> testCoordinates_pass(inputString, positionFacet, expected.poll()));
+		inputs.forEach(inputString -> testPosition_pass(inputString, positionFacet, expected.poll()));
 	}
 
 	@Test
-	public void integerTestFail() {
+	public void positionTestFail() {
 		PositionFacet positionFacet = PositionFacet.instance();
 		assertNotNull(positionFacet);
 		
-		List<String> inputs = Arrays.asList("w,1 NORTH", "1,r2 SOUTH", "1,22 SOU", "1,  4 SOU TH", "1, 4, EAST", "0,4", "  ");
+		List<String> inputs = Arrays.asList("w,1, NORTH", "1,r2 , SOUTH", "1,22 ,SOU", "1,  4 ,SOU TH", "1, 4 EAST", "0,4", "  ");
 		inputs.forEach(inputString -> testPosition_fail(inputString, positionFacet));
 	}
 	
-	private void testCoordinates_pass(String inputString, PositionFacet positionFacet, Position position) {
+	private void testPosition_pass(String inputString, PositionFacet positionFacet, Position position) {
 		MutableString input = MutableString.of(inputString);
 		String currentValue = input.getValue();
 		assertNotNull(currentValue);

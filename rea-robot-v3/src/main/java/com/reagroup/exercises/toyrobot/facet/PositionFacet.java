@@ -17,6 +17,8 @@ public class PositionFacet implements Facet<Position> {
 
 	private final CoordinatesFacet coordinatesFacet = CoordinatesFacet.instance();
 	
+	private final GenericStringFacet commaFacet = GenericStringFacet.of(",");
+	
 	private final DirectionFacet directionFacet = DirectionFacet.instance();
 	
 	private PositionFacet() {
@@ -39,6 +41,11 @@ public class PositionFacet implements Facet<Position> {
 		
 		final Optional<Coordinates> optionalCordinates = this.coordinatesFacet.matchValue(input);
 		if(!optionalCordinates.isPresent()) {
+			input.reset();
+			return Optional.empty();
+		}
+		
+		if(!this.commaFacet.matchValue(input).isPresent()) {
 			input.reset();
 			return Optional.empty();
 		}

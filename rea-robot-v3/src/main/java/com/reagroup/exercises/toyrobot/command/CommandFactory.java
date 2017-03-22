@@ -2,6 +2,9 @@ package com.reagroup.exercises.toyrobot.command;
 
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.reagroup.exercises.toyrobot.util.Argument;
 
 /**
@@ -12,6 +15,8 @@ import com.reagroup.exercises.toyrobot.util.Argument;
  */
 public class CommandFactory {
 
+	private static final Logger LOG = LoggerFactory.getLogger(CommandFactory.class);
+	
 	private CommandFactory(){
 		//
 	}
@@ -40,14 +45,17 @@ public class CommandFactory {
 		
 		Optional<? extends Command> optionalCommand = SimpleCommand.from(input);
 		if(optionalCommand.isPresent()) {
+			LOG.trace("Command found \"{}\"", optionalCommand.get());
 			return optionalCommand.get();
 		}
 		
 		optionalCommand = PlaceCommand.from(input);
 		if(optionalCommand.isPresent()) {
+			LOG.trace("Command found \"{}\"", optionalCommand.get());
 			return optionalCommand.get();
 		}
-		
+	
+		LOG.warn("Invalid command \"{}\", ignored.", input);
 		return NoOpCommand.instance();
 	}
 }

@@ -30,7 +30,7 @@ public class DirectionFacetTest {
 	}
 
 	@Test
-	public void integerTestFail() {
+	public void directionTestFail() {
 		DirectionFacet directionFacet = DirectionFacet.instance();
 		assertNotNull(directionFacet);
 		

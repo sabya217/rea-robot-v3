@@ -20,7 +20,7 @@ import com.reagroup.exercises.toyrobot.position.Coordinates;
 public class CoordinatesFacetTest {
 
 	@Test
-	public void directionTestPass() {
+	public void coordinatesTestPass() {
 		CoordinatesFacet coordinatesFacet = CoordinatesFacet.instance();
 		assertNotNull(coordinatesFacet);
 		
@@ -36,7 +36,7 @@ public class CoordinatesFacetTest {
 	}
 
 	@Test
-	public void integerTestFail() {
+	public void coordinatesTestFail() {
 		CoordinatesFacet coordinatesFacet = CoordinatesFacet.instance();
 		assertNotNull(coordinatesFacet);
 		

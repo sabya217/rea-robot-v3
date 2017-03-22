@@ -1,5 +1,8 @@
 package com.reagroup.exercises.toyrobot.executor;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.reagroup.exercises.toyrobot.command.Command;
 import com.reagroup.exercises.toyrobot.position.Coordinates;
 import com.reagroup.exercises.toyrobot.position.Direction;
@@ -15,6 +18,8 @@ import com.reagroup.exercises.toyrobot.util.Argument;
  */
 public class MutablePosition {
 
+	private static final Logger LOG = LoggerFactory.getLogger(MutablePosition.class);
+	
 	private Position position;
 	
 	private MutablePosition(Position position) {
@@ -55,6 +60,7 @@ public class MutablePosition {
 	
 	/**
 	 * Applies the command on it with respect to the surface area.
+	 * 
 	 * @param command
 	 * @param surface
 	 */
@@ -69,7 +75,8 @@ public class MutablePosition {
 	 */
 	public void updatePosition(final Position position) {
 		Argument.notNull(position, "position");
-		
+	
+		LOG.trace("Trying to change the position from \"{}\" to \"{}\".", this.position, position);
 		this.position = position;
 	}
 	
@@ -81,17 +88,19 @@ public class MutablePosition {
 	public void updateCoordinates(final Coordinates newCoordinates) {
 		Argument.notNull(newCoordinates, "new coordinates");
 		
+		LOG.trace("Trying to change the cordinates from \"{}\" to \"{}\".", this.position.getCoordinates(), newCoordinates);
 		this.position = Position.from(newCoordinates, this.position.getDirection());
 	}
 	
 	/**
 	 * Updates the direction of the mutable position.
 	 * 
-	 * @param newCoordinates
+	 * @param newDirection
 	 */
 	public void updateDirection(final Direction newDirection) {
 		Argument.notNull(newDirection, "new direction");
 		
+		LOG.trace("Trying to change the direction from \"{}\" to \"{}\".", this.position.getDirection(), newDirection);
 		this.position = Position.from(this.position.getCoordinates(), newDirection);
 	}
 }

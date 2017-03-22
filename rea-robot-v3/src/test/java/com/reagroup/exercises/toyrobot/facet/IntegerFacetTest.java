@@ -21,7 +21,7 @@ public class IntegerFacetTest {
 		
 		List<String> inputs = Arrays.asList("123", "12 rea", "  321", " 23 dsds");
 		Queue<Integer> expected = new LinkedList<>(Arrays.asList(123, 12, 321, 23));
-		inputs.forEach(inputString -> testInt_pass(inputString, integerFacet, expected.poll()));
+		inputs.forEach(inputString -> testInteger_pass(inputString, integerFacet, expected.poll()));
 	}
 
 	@Test
@@ -30,10 +30,10 @@ public class IntegerFacetTest {
 		assertNotNull(integerFacet);
 		
 		List<String> inputs = Arrays.asList("a123", "rea 12", "  ", " dsds");
-		inputs.forEach(inputString -> testInt_fail(inputString, integerFacet));
+		inputs.forEach(inputString -> testInteger_fail(inputString, integerFacet));
 	}
 	
-	private void testInt_pass(String inputString, IntegerFacet integerFacet, Integer expected) {
+	private void testInteger_pass(String inputString, IntegerFacet integerFacet, Integer expected) {
 		MutableString input = MutableString.of(inputString);
 		String currentValue = input.getValue();
 		assertNotNull(currentValue);
@@ -45,7 +45,7 @@ public class IntegerFacetTest {
 		assertNotEquals(currentValue, input.getValue());
 	}
 	
-	private void testInt_fail(String inputString, IntegerFacet integerFacet) {
+	private void testInteger_fail(String inputString, IntegerFacet integerFacet) {
 		MutableString input = MutableString.of(inputString);
 		String currentValue = input.getValue();
 		assertNotNull(currentValue);

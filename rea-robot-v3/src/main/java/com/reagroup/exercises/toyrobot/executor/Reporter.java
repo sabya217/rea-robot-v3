@@ -23,6 +23,8 @@ public class Reporter {
 	
 	private List<Capturer<?>> capturers = new ArrayList<>();
 	
+	private boolean minimal = true;
+	
 	private Reporter() {
 		
 	}
@@ -62,7 +64,9 @@ public class Reporter {
 			return;
 		}
 		
-		final String reportString = mutablePosition.getActual().print();
+		final String reportString = 
+				this.minimal ? 
+						mutablePosition.getActual().printMinimal() : mutablePosition.getActual().print();	
 		
 		doSimpleReport(reportString);
 		notifyCapturers(reportString);
@@ -86,5 +90,19 @@ public class Reporter {
 	 */
 	private void doSimpleReport(final String reportString) {
 		System.out.println(reportString);
+	}
+	
+	/**
+	 * Finishes any finalization tasks like closing the capturers. 
+	 */
+	public void finish() {
+		this.capturers.forEach(capturer -> capturer.close());
+	}
+
+	/**
+	 * @param minimal the minimal to set
+	 */
+	public void setMinimal(boolean minimal) {
+		this.minimal = minimal;
 	}
 }

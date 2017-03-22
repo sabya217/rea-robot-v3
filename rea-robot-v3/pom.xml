@@ -43,6 +43,16 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<resources>
+            <!-- Copy all files from resources to target root directory -->
+            <resource>
+                <directory>src/test/resources</directory>
+                <targetPath>..</targetPath>
+                <includes>
+                    <include>**</include>
+                </includes>
+            </resource>
+        </resources>
   </build>
   
   <dependencies>

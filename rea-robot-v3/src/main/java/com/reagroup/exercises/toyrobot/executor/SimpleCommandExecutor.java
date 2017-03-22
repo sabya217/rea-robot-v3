@@ -1,5 +1,8 @@
 package com.reagroup.exercises.toyrobot.executor;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.reagroup.exercises.toyrobot.command.SimpleCommand;
 import com.reagroup.exercises.toyrobot.position.Surface;
 import com.reagroup.exercises.toyrobot.util.Argument;
@@ -11,6 +14,8 @@ import com.reagroup.exercises.toyrobot.util.Argument;
  */
 public class SimpleCommandExecutor {
 
+	private static final Logger LOG = LoggerFactory.getLogger(SimpleCommandExecutor.class);
+	
 	private final Mover mover;
 	
 	private final DirectionChanger directionChanger;
@@ -53,6 +58,8 @@ public class SimpleCommandExecutor {
 		Argument.notNull(mutablePosition, "mutable position");
 		Argument.notNull(surface, "surface");
 		
+		LOG.trace("Trying to execute the command \"{}\" on the robot at position \"{}\" within the boundaries \"{}\".",
+				command, mutablePosition.getActual(), surface);
 		switch(command) {
 		case LEFT:
 			this.directionChanger.lookLeft(mutablePosition, surface);

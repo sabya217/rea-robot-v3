@@ -27,3 +27,6 @@ Proposed solution
 	- Faceted command - Can not exist on its own, need an additional facet to proceed
 - Use Factory pattern to create the Commands from input
 - Use double-despatch with command pattern to execute the commands
+- Create InputSource for reading different types of inputs. The input source should have the ability to present a token stream to be acted upon by the Robot.
+- Create utility Capturer classes which can present different types of outputs for a single execution. The capturers should be plugged in to the Reporter(Observer pattern).
+- Use singletons for all state-less and functor-like action classes

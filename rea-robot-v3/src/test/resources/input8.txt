@@ -1,0 +1,4 @@
+place 6,1,EAST
+	REPORT
+		PLACE 0,1,east
+			REPORT

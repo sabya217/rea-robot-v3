@@ -76,9 +76,18 @@ public class Position {
 					.toString();
 	}
 	
+	/**
+	 * Generates a minimal printable output.
+	 * 
+	 * @return the String representation.
+	 */
+	public String printMinimal() {
+		return this.coordinates.printMinimal() + "," + this.direction;
+	}
+	
 	@Override
 	public String toString() {
-		return print();
+		return printMinimal();
 	}
 	
 	@Override

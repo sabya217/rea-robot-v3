@@ -34,8 +34,8 @@ public class CommandFactoryTest {
 		CommandFactory factory = CommandFactory.instance();
 		assertNotNull(factory);
 		
-		List<String> inputs = Arrays.asList("PLACE 1,2 NORTH", "place 1,3SOUTH", "  PLAcE 1, 2 east", "PLACE        1,3weST", 
-				" PLACE  4, 3 WESt", " PLACE 0 , 3 WEST", " PLACE 6 ,3 EAST");
+		List<String> inputs = Arrays.asList("PLACE 1,2, NORTH", "place 1,3,SOUTH", "  PLAcE 1, 2 ,east", "PLACE        1,3,weST", 
+				" PLACE  4, 3 , WESt", " PLACE 0 , 3 , WEST", " PLACE 6 ,3, EAST");
 		Queue<Position> expected = 
 			new LinkedList<>(
 				Arrays.asList(
@@ -54,7 +54,7 @@ public class CommandFactoryTest {
 		
 		List<String> inputs = Arrays.asList(
 				"MOV", "LEF T ", "    RIHGT", "  RE PORT  ", "MOVES", " LEFT P", " Y RIGHT",
-				"PLACE 4 3 EAST", "PLACE 4,5 WES", "PLAC 3,2 EAST", "PLACE p,5 NORTH", "PLACE 0,0 SOUTH sads", " ", "");
+				"PLACE 4, 3 EAST", "PLACE 4 3, EAST", "PLACE 4,5, WES", "PLAC 3,2, EAST", "PLACE p,5, NORTH", "PLACE 0,0, SOUTH sads", " ", "");
 		inputs.forEach(inputString -> testFailCommand(factory, inputString));
 	}
 	

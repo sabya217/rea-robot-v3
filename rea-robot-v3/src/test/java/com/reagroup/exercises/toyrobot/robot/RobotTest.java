@@ -36,24 +36,24 @@ public class RobotTest {
 	}
 	
 	@Test
-	public void testRobot1() {
+	public void testRobotSimple() {
 		final List<Command> commands = 
 				Arrays.asList(
-						PlaceCommand.from("PLACE 0,1 SOUTH").get(),
+						PlaceCommand.from("PLACE 0,1,SOUTH").get(),
 						SimpleCommand.MOVE,
 						SimpleCommand.REPORT);
 		
 		Position expected = Position.from(0, 2, Direction.SOUTH); 
 		commands.forEach(command ->robot.execute(command, surface));
 		List<String> output = new ArrayList<>(this.capturer.get());
-		assertEquals(Arrays.asList(expected.print()), output);
+		assertEquals(Arrays.asList(expected.printMinimal()), output);
 	}
 	
 	@Test
-	public void testRobot2() {
+	public void testRobotMultipleMoveDirection() {
 		final List<Command> commands = 
 				Arrays.asList(
-						PlaceCommand.from("PLACE 0,1 SOUTH").get(),
+						PlaceCommand.from("PLACE 0,1, SOUTH").get(),
 						SimpleCommand.MOVE,
 						SimpleCommand.LEFT,
 						SimpleCommand.LEFT,
@@ -65,14 +65,14 @@ public class RobotTest {
 		Position expected = Position.from(0, 0, Direction.EAST); 
 		commands.forEach(command ->robot.execute(command, surface));
 		List<String> output = new ArrayList<>(this.capturer.get());
-		assertEquals(Arrays.asList(expected.print()), output);
+		assertEquals(Arrays.asList(expected.printMinimal()), output);
 	}
 	
 	@Test
-	public void testRobot3() {
+	public void testRobotMultipleReport() {
 		final List<Command> commands = 
 				Arrays.asList(
-						PlaceCommand.from("PLACE 0,1 SOUTH").get(),
+						PlaceCommand.from("PLACE 0,1 ,SOUTH").get(),
 						SimpleCommand.MOVE,
 						SimpleCommand.LEFT,
 						SimpleCommand.REPORT,
@@ -86,14 +86,14 @@ public class RobotTest {
 		Position expected1 = Position.from(1, 3, Direction.WEST); 
 		commands.forEach(command ->robot.execute(command, surface));
 		List<String> output = new ArrayList<>(this.capturer.get());
-		assertEquals(Arrays.asList(expected.print(), expected1.print()), output);
+		assertEquals(Arrays.asList(expected.printMinimal(), expected1.printMinimal()), output);
 	}
 	
 	@Test
-	public void testRobot4() {
+	public void testRobotNoReport() {
 		final List<Command> commands = 
 				Arrays.asList(
-						PlaceCommand.from("PLACE 0,1 SOUTH").get(),
+						PlaceCommand.from("PLACE 0,1 , SOUTH").get(),
 						SimpleCommand.MOVE,
 						SimpleCommand.LEFT,
 						/*SimpleCommand.REPORT,*/
@@ -108,10 +108,10 @@ public class RobotTest {
 	}
 	
 	@Test
-	public void testRobot5() {
+	public void testRobotNoPlace() {
 		final List<Command> commands = 
 				Arrays.asList(
-						/*PlaceCommand.from("PLACE 0,1 SOUTH").get(),*/
+						/*PlaceCommand.from("PLACE 0,1, SOUTH").get(),*/
 						SimpleCommand.MOVE,
 						SimpleCommand.LEFT,
 						SimpleCommand.REPORT,
@@ -123,5 +123,46 @@ public class RobotTest {
 		
 		commands.forEach(command ->robot.execute(command, surface));
 		assertTrue(this.capturer.get().isEmpty());
+	}
+	
+	@Test
+	public void testRobotWrongPlace() {
+		final List<Command> commands = 
+				Arrays.asList(
+						PlaceCommand.from("PLACE 6,1 , SOUTH").get(),
+						SimpleCommand.REPORT);
+		
+		commands.forEach(command ->robot.execute(command, surface));
+		assertTrue(this.capturer.get().isEmpty());
+	}
+	
+	@Test
+	public void testRobotWrongPlace1() {
+		final List<Command> commands = 
+				Arrays.asList(
+						PlaceCommand.from("PLACE 0,1,SOUTH").get(),
+						SimpleCommand.REPORT,
+						PlaceCommand.from("PLACE 6,1 ,SOUTH").get(),
+						SimpleCommand.REPORT);
+		
+		Position expected = Position.from(0, 1, Direction.SOUTH); 
+		commands.forEach(command ->robot.execute(command, surface));
+		List<String> output = new ArrayList<>(this.capturer.get());
+		assertEquals(Arrays.asList(expected.printMinimal(), expected.printMinimal()), output);
+	}
+	
+	@Test
+	public void testRobotWrongPlace2() {
+		final List<Command> commands = 
+				Arrays.asList(
+						PlaceCommand.from("PLACE 6,1,EAST").get(),
+						SimpleCommand.REPORT,
+						PlaceCommand.from("PLACE 0,1,EAST").get(),
+						SimpleCommand.REPORT);
+		
+		Position expected = Position.from(0, 1, Direction.EAST); 
+		commands.forEach(command ->robot.execute(command, surface));
+		List<String> output = new ArrayList<>(this.capturer.get());
+		assertEquals(Arrays.asList(expected.printMinimal()), output);
 	}
 }

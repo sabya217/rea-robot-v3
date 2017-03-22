@@ -1,0 +1,8 @@
+PLACE 0,1,SOUTH
+MOVe
+LEft
+LEFT
+MOVE
+move
+Right
+REPOrT

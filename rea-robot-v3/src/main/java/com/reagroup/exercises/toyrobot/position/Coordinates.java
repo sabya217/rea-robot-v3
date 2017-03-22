@@ -97,9 +97,18 @@ public class Coordinates {
 					.toString();
 	}
 	
+	/**
+	 * Generates a minimal printable output.
+	 * 
+	 * @return the String representation.
+	 */
+	public String printMinimal() {
+		return this.X + "," + this.Y;
+	}
+	
 	@Override
 	public String toString() {
-		return print();
+		return printMinimal();
 	}
 	
 	@Override
