@@ -9,7 +9,7 @@ Please refer `SOLUTION.md` for explanation of design and approach.
 
 Please run the toy robot simulator as follows.
 
-java -jar rea-robot-v3.jar -input <inputFileName> [-output <outputFileName>]
+java -jar rea-robot-v3-0.0.1-SNAPSHOT-jar-with-dependencies.jar -input <inputFileName> [-output <outputFileName>]
 
  - Each line in the input file should respond to an acceptable command.
  - Output file option is optional, it helps save the output report to a file. If the output file does not exist, it will be created, else, its contents will be replaced with the new contents.
