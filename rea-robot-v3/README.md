@@ -2,7 +2,7 @@
 
 Simulator to represent a toy robot moving on a bounded surface area.
 
-Please refer `PROBLEM.md` for detail description of the problem statement.
+Please refer `PROBLEM.md` for detailed description of the problem statement.
 Please refer `SOLUTION.md` for explanation of design and approach.
 
 ## Instructions
